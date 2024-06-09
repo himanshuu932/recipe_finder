@@ -17,19 +17,13 @@
             display: flex;
             justify-content: space-between; /* Distribute space between items */
             align-items: center; /* Align items vertically in the center */
+            flex-wrap: wrap; /* Allow wrapping for smaller screens */
         }
         .menu-bar .left-links, .menu-bar .right-links {
             display: flex;
+            flex-wrap: wrap; /* Allow wrapping for smaller screens */
         }
-        .menu-bar .left-links a {
-            float: left;
-            display: block;
-            color: white;
-            text-align: center;
-            padding: 14px 16px;
-            text-decoration: none;
-        }
-        .menu-bar .right-links a {
+        .menu-bar .left-links a, .menu-bar .right-links a {
             display: block;
             color: white;
             text-align: center;
@@ -46,31 +40,32 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
             margin: 0;
             padding-top: 50px; /* Add padding to avoid content being hidden behind the fixed menu bar */
         }
         .container {
             text-align: center;
             background: white;
-            padding: 50px;
+            padding: 20px;
             border-radius: 15px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            width: 80%;
+            width: 90%;
             max-width: 800px;
+            margin-top: 60px; /* Add margin to push content below fixed menu bar */
         }
         h1 {
-            font-size: 3em;
+            font-size: 2em; /* Adjusted font size for better responsiveness */
             margin-bottom: 20px;
             color: #ff6f61;
         }
         input[type="text"], textarea {
-            width: 80%;
+            width: 90%; /* Adjust width for better responsiveness */
             padding: 15px;
             margin: 10px 0;
             border: 2px solid #ff6f61;
             border-radius: 5px;
-            font-size: 1.2em;
+            font-size: 1em; /* Adjusted font size for better responsiveness */
         }
         textarea {
             resize: none;
@@ -78,10 +73,10 @@
         button {
             background-color: #ff6f61;
             color: white;
-            padding: 15px 30px;
+            padding: 10px 20px; /* Adjusted padding for better responsiveness */
             border: none;
             border-radius: 5px;
-            font-size: 1.2em;
+            font-size: 1em; /* Adjusted font size for better responsiveness */
             cursor: pointer;
             transition: background-color 0.3s;
             margin: 10px;
@@ -92,7 +87,7 @@
         #recipes {
             margin-top: 20px;
             text-align: left;
-            width: 80%;
+            width: 90%; /* Adjust width for better responsiveness */
         }
         .pop-menu {
             position: absolute;
@@ -100,7 +95,7 @@
             border: 1px solid #ccc;
             max-height: 200px;
             overflow-y: auto;
-            width: 78%;
+            width: 88%; /* Adjust width for better responsiveness */
             display: none;
         }
         .pop-menu a {
@@ -111,6 +106,35 @@
         }
         .pop-menu a:hover {
             background-color: #f9f9f9;
+        }
+        /* Media queries for responsiveness */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.5em;
+            }
+            input[type="text"], textarea {
+                font-size: 0.9em;
+            }
+            button {
+                font-size: 0.9em;
+                padding: 10px 20px;
+            }
+        }
+        @media (max-width: 480px) {
+            .menu-bar .left-links, .menu-bar .right-links {
+                flex-direction: column;
+            }
+            .menu-bar .left-links a, .menu-bar .right-links a {
+                padding: 10px;
+                text-align: left;
+            }
+            .container {
+                width: 95%;
+                padding: 20px;
+            }
+            input[type="text"], textarea, #recipes, .pop-menu {
+                width: 95%;
+            }
         }
     </style>
     <script src="script.js" defer></script>
@@ -124,18 +148,16 @@
             <a href="show.html" onclick="showAllRecipes()">Show all</a>
         </div>
         <div class="right-links">
-            <a id="id" onclick="">null</a>
+            <a id="id" onclick=""></a>
             <a href="login">Log Out</a>
         </div>
     </div>
     <div class="container">
         <h1>Recipe Information</h1>
-        <input type="text" id="recipeInput" placeholder="Enter an recipe name..." oninput="updateRecipeList()">
+        <input type="text" id="recipeInput" placeholder="Enter a recipe name..." oninput="updateRecipeList()">
         <div class="pop-menu" id="popMenu"></div>
         <button onclick="displayRecipe()">Search</button>
-       
         <div id="recipes"></div>
     </div>
-  
 </body>
 </html>
