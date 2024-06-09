@@ -17,13 +17,19 @@
             display: flex;
             justify-content: space-between; /* Distribute space between items */
             align-items: center; /* Align items vertically in the center */
-            flex-wrap: wrap; /* Allow wrapping for smaller screens */
         }
         .menu-bar .left-links, .menu-bar .right-links {
             display: flex;
-            flex-wrap: wrap; /* Allow wrapping for smaller screens */
         }
-        .menu-bar .left-links a, .menu-bar .right-links a {
+        .menu-bar .left-links a {
+            float: left;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+        .menu-bar .right-links a {
             display: block;
             color: white;
             text-align: center;
@@ -39,10 +45,11 @@
             background: linear-gradient(to right, #ffafbd, #ffc3a0);
             display: flex;
             justify-content: center;
-            align-items: center;
-            height: 100vh;
+            align-items: flex-start; /* Align items at the start to allow scrolling */
+            min-height: 100vh; /* Ensure body takes at least full height */
             margin: 0;
-            padding-top: 50px; /* Add padding to avoid content being hidden behind the fixed menu bar */
+            padding-top: 70px; /* Add padding to avoid content being hidden behind the fixed menu bar */
+            overflow-y: auto; /* Enable vertical scrolling */
         }
         .container {
             text-align: center;
@@ -50,22 +57,22 @@
             padding: 50px;
             border-radius: 15px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            width: 90%;
+            width: 80%;
             max-width: 800px;
-            margin-top: 60px; /* Add margin to push content below fixed menu bar */
+            margin-bottom: 50px; /* Add margin at the bottom to avoid overlap with content */
         }
         h1 {
-            font-size: 2.5em; /* Adjusted font size for better responsiveness */
+            font-size: 3em;
             margin-bottom: 20px;
             color: #ff6f61;
         }
         input[type="text"], textarea {
-            width: 90%; /* Adjust width for better responsiveness */
+            width: 80%;
             padding: 15px;
             margin: 10px 0;
             border: 2px solid #ff6f61;
             border-radius: 5px;
-            font-size: 1em; /* Adjusted font size for better responsiveness */
+            font-size: 1.2em;
         }
         textarea {
             resize: none;
@@ -73,10 +80,10 @@
         button {
             background-color: #ff6f61;
             color: white;
-            padding: 10px 20px; /* Adjusted padding for better responsiveness */
+            padding: 15px 30px;
             border: none;
             border-radius: 5px;
-            font-size: 1em; /* Adjusted font size for better responsiveness */
+            font-size: 1.2em;
             cursor: pointer;
             transition: background-color 0.3s;
             margin: 10px;
@@ -87,7 +94,7 @@
         #recipes {
             margin-top: 20px;
             text-align: left;
-            width: 90%; /* Adjust width for better responsiveness */
+            width: 80%;
         }
         .pop-menu {
             position: absolute;
@@ -95,7 +102,7 @@
             border: 1px solid #ccc;
             max-height: 200px;
             overflow-y: auto;
-            width: 88%; /* Adjust width for better responsiveness */
+            width: 78%;
             display: none;
         }
         .pop-menu a {
@@ -106,35 +113,6 @@
         }
         .pop-menu a:hover {
             background-color: #f9f9f9;
-        }
-        /* Media queries for responsiveness */
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 2em;
-            }
-            input[type="text"], textarea {
-                font-size: 1em;
-            }
-            button {
-                font-size: 1em;
-                padding: 10px 20px;
-            }
-        }
-        @media (max-width: 480px) {
-            .menu-bar .left-links, .menu-bar .right-links {
-                flex-direction: column;
-            }
-            .menu-bar .left-links a, .menu-bar .right-links a {
-                padding: 10px;
-                text-align: left;
-            }
-            .container {
-                width: 95%;
-                padding: 30px;
-            }
-            input[type="text"], textarea, #recipes, .pop-menu {
-                width: 95%;
-            }
         }
     </style>
     <script src="script.js" defer></script>
