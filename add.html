@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Finder</title>
+    <style>
+        /* styles.css */
+        .menu-bar {
+            background-color: #ff6f61;
+            overflow: hidden;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between; /* Distribute space between items */
+            align-items: center; /* Align items vertically in the center */
+        }
+        .menu-bar .left-links, .menu-bar .right-links {
+            display: flex;
+        }
+        .menu-bar .left-links a {
+            float: left;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+        .menu-bar .right-links a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+        .menu-bar a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to right, #ffafbd, #ffc3a0);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding-top: 50px; /* Add padding to avoid content being hidden behind the fixed menu bar */
+        }
+        .container {
+            text-align: center;
+            background: white;
+            padding: 50px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 80%;
+            max-width: 800px;
+        }
+        h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+            color: #ff6f61;
+        }
+        input[type="text"], textarea {
+            width: 80%;
+            padding: 15px;
+            margin: 10px 0;
+            border: 2px solid #ff6f61;
+            border-radius: 5px;
+            font-size: 1.2em;
+        }
+        textarea {
+            resize: none;
+        }
+        button {
+            background-color: #ff6f61;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin: 10px;
+        }
+        button:hover {
+            background-color: #e55b50;
+        }
+        #recipes {
+            margin-top: 20px;
+            text-align: left;
+            width: 80%;
+        }
+        .pop-menu {
+            position: absolute;
+            background-color: white;
+            border: 1px solid #ccc;
+            max-height: 200px;
+            overflow-y: auto;
+            width: 78%;
+            display: none;
+        }
+        .pop-menu a {
+            padding: 10px;
+            display: block;
+            color: black;
+            text-decoration: none;
+        }
+        .pop-menu a:hover {
+            background-color: #f9f9f9;
+        }
+    </style>
+    <script src="script.js" defer></script>
+</head>
+<body>
+   
+        <div class="menu-bar">
+            <div class="left-links">
+                <a href="home.html">Home</a>
+                <a href="add.html">Add</a>
+                <a href="showsingle.html">Recipe Info</a>
+                <a href="show.html" onclick="showAllRecipes()">Show all</a>
+            </div>
+            <div class="right-links">
+                <a id="id" onclick=""></a>
+                <a href="login">Log Out</a>
+            </div>
+        </div>
+    
+<div class="container">
+<h2>Add a New Recipe</h2>
+<input type="text" id="newRecipeName" placeholder="Recipe Name">
+<textarea id="newRecipeIngredients" rows="4" placeholder="Ingredients (comma separated)"></textarea>
+<textarea id="newRecipeInstructions" rows="4" placeholder="Instructions"></textarea>
+<button onclick="addRecipe()">Add Recipe</button>
+<div id="recipes"></div>
+</div>
+
+
+</body>
+</html>

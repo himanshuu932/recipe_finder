@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chef Signup and Login</title>
+    <style>
+        /* Styles here */
+        .menu-bar {
+            background-color: #ff6f61;
+            overflow: hidden;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+
+        .menu-bar a {
+            float: left;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        .menu-bar a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to right, #ffafbd, #ffc3a0);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding-top: 50px; /* Add padding to avoid content being hidden behind the fixed menu bar */
+        }
+
+        .container {
+            text-align: center;
+            background: white;
+            padding: 50px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 80%;
+            max-width: 800px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+            color: #ff6f61;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        textarea {
+            width: 80%;
+            padding: 15px;
+            margin: 10px 0;
+            border: 2px solid #ff6f61;
+            border-radius: 5px;
+            font-size: 1.2em;
+        }
+
+        textarea {
+            resize: none;
+        }
+
+        button {
+            background-color: #ff6f61;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin: 10px;
+        }
+
+        button:hover {
+            background-color: #e55b50;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 10px; /* Adjust margin for the buttons */
+        }
+    </style>
+    <script src="script.js" defer></script>
+</head>
+<body>
+
+<div class="container" id="login">
+    <h1>Login</h1>
+    <form id="loginForm">
+        <input type="text" name="email" placeholder="Email" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <button type="submit">Login</button>
+        <button type="button" onclick="location.href='/signup'">Signup</button>
+    </form>
+    
+    <p id="message" style="color: red;"></p>
+      
+</div>
+<script>
+    document.getElementById('loginForm').addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const form = event.target;
+        const formData = new FormData(form);
+        const data = Object.fromEntries(formData.entries());
+        try {
+            const response = await fetch('/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            });
+            const result = await response.json();
+            const messageElement = document.getElementById('message');
+            const nameElement = document.getElementById('name');
+            if (result.success) {
+                messageElement.textContent = "Logging in...";
+                messageElement.style.color = 'green';
+              
+                
+                // Store the name in localStorage
+                localStorage.setItem('userName', result.name);
+                
+                setTimeout(() => {
+                    window.location.href = '/home';
+                }, 1000);
+            } else {
+                messageElement.textContent = result.message;
+                messageElement.style.color = 'red';
+                nameElement.textContent = '';
+            }
+        } catch (error) {
+            document.getElementById('message').textContent = 'Error logging in.';
+            document.getElementById('message').style.color = 'red';
+            document.getElementById('name').textContent = '';
+        }
+    });
+</script>
+</body>
+</html>
