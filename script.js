@@ -1,6 +1,6 @@
 async function searchRecipe() {
     const recipeInput = document.getElementById('recipeInput').value.trim(); // Trim to remove leading/trailing whitespace
-    up(him);
+    
 
     if (!recipeInput) {
         // If input is blank, display an alert message
