@@ -132,6 +132,7 @@
             const result = await response.json();
             const messageElement = document.getElementById('message');
             const nameElement = document.getElementById('name');
+          
             if (result.success) {
                 messageElement.textContent = "Logging in...";
                 messageElement.style.color = 'green';
@@ -146,7 +147,7 @@
             } else {
                 messageElement.textContent = result.message;
                 messageElement.style.color = 'red';
-                nameElement.textContent = '';
+               
             }
         } catch (error) {
             document.getElementById('message').textContent = 'Error logging in.';
