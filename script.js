@@ -1,6 +1,5 @@
 async function searchRecipe() {
-    const recipeInput = document.getElementById('recipeInput').value.trim(); // Trim to remove leading/trailing whitespace
-    
+    let recipeInput = document.getElementById('recipeInput').value.trim(); // Trim to remove leading/trailing whitespace
 
     if (!recipeInput) {
         // If input is blank, display an alert message
@@ -8,6 +7,7 @@ async function searchRecipe() {
         return;
     }
 
+    
     try {
         const response = await fetch(`/api/recipe/search?ingredient=${encodeURIComponent(recipeInput)}`);
         if (response.ok) {
@@ -16,14 +16,15 @@ async function searchRecipe() {
             recipesDiv.innerHTML = '<h2>Search Results</h2>';
             if (recipes.length > 0) {
                 recipes.forEach(recipe => {
-                    const recipeElement = document.createElement('div');
-                    recipeElement.innerHTML = `<strong>Name:</strong> ${recipe.name}<br>`;
-                    recipesDiv.appendChild(recipeElement);
+                 //   if (!recipe.ingredients.toLowerCase().includes("teaspoon")) { 
+                        const recipeElement = document.createElement('div');
+                        recipeElement.innerHTML = `<strong>Name:</strong> ${recipe.name}<br>`;
+                        recipesDiv.appendChild(recipeElement);
+                    
                 });
             } else {
                 recipesDiv.innerHTML += '<p>No recipes found with the given ingredient.</p>';
-                // Add an alert message
-                //alert('No recipes found with the given ingredient.');
+               
             }
         } else {
             alert('Failed to search recipes');
@@ -33,6 +34,7 @@ async function searchRecipe() {
         alert('An error occurred while searching for recipes');
     }
 }
+
 
 async function showAllRecipes() {
     try {
@@ -123,38 +125,43 @@ return;
 }
 async function displayRecipe() {
     try {
-        const recipeInput = document.getElementById('recipeInput').value.trim(); // Trim to remove leading/trailing whitespace
-        console.log("hello");
-        console.log(recipeInput);
+        const recipeInput = document.getElementById('recipeInput').value.trim().toLowerCase(); // Trim to remove leading/trailing whitespace and convert to lowercase
         const response = await fetch('/api/recipe/all');
         const recipesDiv = document.getElementById('recipes');
+
         if (response.ok) {
             const recipes = await response.json();
-            
-            recipesDiv.innerHTML = '<h2>Recipe found!!</h2>';
+
             let recipeFound = false;
-        
+            recipesDiv.innerHTML = '';
+
             recipes.forEach(recipe => {
-                if (recipe.name.toLowerCase() === recipeInput.toLowerCase()) {
+                if (recipe.name.toLowerCase().includes(recipeInput)) {
+                    if (!recipeFound) {
+                        recipesDiv.innerHTML = '<h2>Recipes found:</h2>';
+                    }
                     const recipeElement = document.createElement('div');
-                    recipeElement.innerHTML = `<strong>Name:</strong> ${recipe.name}<br><strong>Ingredients:</strong> ${recipe.ingredients.join(', ')}<br><strong>Instructions:</strong> ${recipe.instructions}<br><br>`;
+                    recipeElement.innerHTML = `
+                        <strong>Name:</strong> ${recipe.name}<br>
+                        <strong>Ingredients:</strong> ${recipe.ingredients.join(', ')}<br>
+                        <strong>Instructions:</strong> ${recipe.instructions}<br><br>`;
                     recipesDiv.appendChild(recipeElement);
                     recipeFound = true;
                 }
             });
-        
+
             if (!recipeFound) {
                 recipesDiv.innerHTML = '<h2>No recipes found</h2>';
             }
         } else {
             recipesDiv.innerHTML = '<h2>No recipes found</h2>';
         }
-        
     } catch (error) {
         console.error('Error:', error);
         alert('An error occurred while fetching recipes');
     }
 }
+
 
 
 function handleSignup(event) {
